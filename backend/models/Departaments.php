@@ -47,12 +47,12 @@ class Departaments extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'departament_id' => 'Departament ID',
-            'branches_branch_id' => 'Branches Branch ID',
-            'departament_name' => 'Departament Name',
-            'companies_company_id' => 'Companies Company ID',
+            'departament_id'           => 'Departament ID',
+            'branches_branch_id'       => 'Branch Name',
+            'departament_name'         => 'Departament Name',
+            'companies_company_id'     => 'Company Name',
             'departament_created_date' => 'Departament Created Date',
-            'departament_status' => 'Departament Status',
+            'departament_status'       => 'Departament Status',
         ];
     }
 

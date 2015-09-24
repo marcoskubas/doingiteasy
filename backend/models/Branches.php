@@ -47,7 +47,7 @@ class Branches extends \yii\db\ActiveRecord
     {
         return [
             'branch_id' => 'Branch ID',
-            'companies_company_id' => 'Companies Company ID',
+            'companies_company_id' => 'Company Name',
             'branch_name' => 'Branch Name',
             'branch_address' => 'Branch Address',
             'branch_created_date' => 'Branch Created Date',
