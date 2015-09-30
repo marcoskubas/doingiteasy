@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\CompaniesSearch */
+/* @var $model backend\modules\settings\models\CompaniesSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -23,7 +23,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'company_address') ?>
 
-    <?= $form->field($model, 'company_created_date') ?>
+    <?= $form->field($model, 'company_start_date') ?>
+
+    <?php // echo $form->field($model, 'company_created_date') ?>
 
     <?php // echo $form->field($model, 'company_status') ?>
 
