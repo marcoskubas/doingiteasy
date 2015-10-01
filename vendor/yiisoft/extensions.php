@@ -78,7 +78,7 @@ return array (
   'kartik-v/yii2-widget-select2' => 
   array (
     'name' => 'kartik-v/yii2-widget-select2',
-    'version' => '9999999-dev',
+    'version' => '2.0.3.0',
     'alias' => 
     array (
       '@kartik/select2' => $vendorDir . '/kartik-v/yii2-widget-select2',
