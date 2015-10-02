@@ -26,9 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'departament_id',
+            'companiesCompany.company_name',
             'branchesBranch.branch_name',
             'departament_name',
-            'companiesCompany.company_name',
             'departament_created_date',
             // 'departament_status',
 

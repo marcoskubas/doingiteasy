@@ -42,6 +42,20 @@ class BranchesController extends Controller
         ]);
     }
 
+    public function actionLists($id){
+
+        $countBranches = Branches::find()->where(['companies_company_id' => $id])->count();
+        $branches      = Branches::find()->where(['companies_company_id' => $id])->all();
+
+        if(count($countBranches) > 0){
+            foreach ($branches as $branch) {
+                echo "<option value='" . $branch->branch_id . "'>" . $branch->branch_name . "</option>";
+            }
+        }else{
+            echo "<option>-</option>";
+        }
+    }
+
     /**
      * Displays a single Branches model.
      * @param integer $id
