@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\web\ForbiddenHttpException;
 
 /**
  * CompaniesController implements the CRUD actions for Companies model.
@@ -61,25 +62,30 @@ class CompaniesController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Companies();
+        if(Yii::$app->user->can('create-company')){
 
-        if ($model->load(Yii::$app->request->post())) {
+            $model = new Companies();
 
-            // get the instance of the uploaded file
-            $model->file = UploadedFile::getInstance($model, 'file');
-            $imageName   = $model->company_name;
-            $imagePath   = 'uploads/' . $imageName . '.' . $model->file->extension;
-            $model->file->saveAs($imagePath);
+            if ($model->load(Yii::$app->request->post())) {
 
-            // save the path in db column
-            $model->company_logo = $imagePath;
-            $model->save();
+                // get the instance of the uploaded file
+                $model->file = UploadedFile::getInstance($model, 'file');
+                $imageName   = $model->company_name;
+                $imagePath   = 'uploads/' . $imageName . '.' . $model->file->extension;
+                $model->file->saveAs($imagePath);
 
-            return $this->redirect(['view', 'id' => $model->company_id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+                // save the path in db column
+                $model->company_logo = $imagePath;
+                $model->save();
+
+                return $this->redirect(['view', 'id' => $model->company_id]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
+        }else{
+            throw new ForbiddenHttpException;
         }
     }
 
