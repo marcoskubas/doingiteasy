@@ -8,6 +8,7 @@ use backend\models\CompaniesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CompaniesController implements the CRUD actions for Companies model.
@@ -62,10 +63,17 @@ class CompaniesController extends Controller
     {
         $model = new Companies();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
 
+            // get the instance of the uploaded file
             $model->file = UploadedFile::getInstance($model, 'file');
-            $model->file->saveAs('uploads/');
+            $imageName   = $model->company_name;
+            $imagePath   = 'uploads/' . $imageName . '.' . $model->file->extension;
+            $model->file->saveAs($imagePath);
+
+            // save the path in db column
+            $model->company_logo = $imagePath;
+            $model->save();
 
             return $this->redirect(['view', 'id' => $model->company_id]);
         } else {
@@ -85,7 +93,18 @@ class CompaniesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            // get the instance of the uploaded file
+            $model->file = UploadedFile::getInstance($model, 'file');
+            $imageName   = $model->company_name;
+            $imagePath   = 'uploads/' . $imageName . '.' . $model->file->extension;
+            $model->file->saveAs($imagePath);
+
+            // save the path in db column
+            $model->company_logo = $imagePath;
+            $model->save();
+
             return $this->redirect(['view', 'id' => $model->company_id]);
         } else {
             return $this->render('update', [
