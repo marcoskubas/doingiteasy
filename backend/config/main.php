@@ -30,6 +30,11 @@ return [
                 ],
             ],
         ],
+        'mailer' => 
+        [
+            'class'            => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false
+        ],
         'authManager' => 
             [
                 'class'        => 'yii\rbac\DbManager',
