@@ -14,18 +14,20 @@
 CREATE TABLE IF NOT EXISTS `auth_assignment` (
   `item_name` varchar(64) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `created_at` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`item_name`,`user_id`),
   KEY `auth_assignment_ibfk_2` (`user_id`),
-  CONSTRAINT `auth_assignment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `auth_assignment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela advanced_yii2.auth_assignment: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela advanced_yii2.auth_assignment: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
-  ('admin', 2, NULL),
-  ('create-branch', 1, NULL);
+  ('admin', 2, '2015-10-06 21:51:07'),
+  ('create-branch', 3, '2015-10-06 21:54:00'),
+  ('create-company', 3, '2015-10-06 21:51:07'),
+  ('updateOwnPost', 3, '2015-10-06 21:51:07');
 /*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
 
 
@@ -44,12 +46,13 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
   CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela advanced_yii2.auth_item: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela advanced_yii2.auth_item: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `auth_item` DISABLE KEYS */;
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
   ('admin', 1, 'admin can create branches and create companies', NULL, NULL, NULL, NULL),
-  ('create-branch', 1, 'allow a user to add a branch', NULL, NULL, NULL, NULL),
-  ('create-company', 1, 'allow a user to add a company', NULL, NULL, NULL, NULL);
+  ('create-branch', 2, 'allow a user to add a branch', NULL, NULL, NULL, NULL),
+  ('create-company', 2, 'allow a user to add a company', NULL, NULL, NULL, NULL),
+  ('updateOwnPost', 2, 'update yout own post', NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `auth_item` ENABLE KEYS */;
 
 
@@ -63,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `auth_item_child` (
   CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela advanced_yii2.auth_item_child: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela advanced_yii2.auth_item_child: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `auth_item_child` DISABLE KEYS */;
 INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
   ('admin', 'create-branch'),
@@ -96,13 +99,14 @@ CREATE TABLE IF NOT EXISTS `branches` (
   PRIMARY KEY (`branch_id`),
   KEY `FK1_companies` (`companies_company_id`),
   CONSTRAINT `FK1_companies` FOREIGN KEY (`companies_company_id`) REFERENCES `companies` (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela advanced_yii2.branches: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela advanced_yii2.branches: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `branches` DISABLE KEYS */;
 INSERT INTO `branches` (`branch_id`, `companies_company_id`, `branch_name`, `branch_address`, `branch_created_date`, `branch_status`) VALUES
   (1, 1, 'My Branche', 'Branch Address', '2015-09-22 23:18:58', 'active'),
-  (2, 2, 'Marcos', 'Kubas', '2015-09-30 22:12:36', 'inactive');
+  (2, 2, 'Marcos', 'Kubas', '2015-09-30 22:12:36', 'inactive'),
+  (3, 3, 'New Branch Master', 'Guaíba', '2015-10-03 17:58:24', 'active');
 /*!40000 ALTER TABLE `branches` ENABLE KEYS */;
 
 
@@ -128,6 +132,21 @@ INSERT INTO `companies` (`company_id`, `company_name`, `company_email`, `company
 /*!40000 ALTER TABLE `companies` ENABLE KEYS */;
 
 
+-- Copiando estrutura para tabela advanced_yii2.customers
+CREATE TABLE IF NOT EXISTS `customers` (
+  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_name` varchar(100) NOT NULL,
+  `zip_code` varchar(20) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `province` varchar(100) NOT NULL,
+  PRIMARY KEY (`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Copiando dados para a tabela advanced_yii2.customers: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
+
+
 -- Copiando estrutura para tabela advanced_yii2.departaments
 CREATE TABLE IF NOT EXISTS `departaments` (
   `departament_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -148,6 +167,41 @@ CREATE TABLE IF NOT EXISTS `departaments` (
 INSERT INTO `departaments` (`departament_id`, `branches_branch_id`, `departament_name`, `companies_company_id`, `departament_created_date`, `departament_status`) VALUES
   (1, 1, 'Sales', 1, '2015-09-22 23:23:37', 'active');
 /*!40000 ALTER TABLE `departaments` ENABLE KEYS */;
+
+
+-- Copiando estrutura para tabela advanced_yii2.emails
+CREATE TABLE IF NOT EXISTS `emails` (
+  `email_id` int(11) NOT NULL AUTO_INCREMENT,
+  `receiver_name` varchar(50) NOT NULL,
+  `receiver_email` varchar(200) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `attachment` varchar(255) NOT NULL,
+  PRIMARY KEY (`email_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- Copiando dados para a tabela advanced_yii2.emails: ~1 rows (aproximadamente)
+/*!40000 ALTER TABLE `emails` DISABLE KEYS */;
+INSERT INTO `emails` (`email_id`, `receiver_name`, `receiver_email`, `subject`, `content`, `attachment`) VALUES
+  (1, 'Marcos', 'marcosarobed@gmail.com', 'Testing Mail', 'Mail to attachments', 'attachments/1443891245.png');
+/*!40000 ALTER TABLE `emails` ENABLE KEYS */;
+
+
+-- Copiando estrutura para tabela advanced_yii2.locations
+CREATE TABLE IF NOT EXISTS `locations` (
+  `location_id` int(11) NOT NULL AUTO_INCREMENT,
+  `zip_code` varchar(20) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `province` varchar(100) NOT NULL,
+  PRIMARY KEY (`location_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- Copiando dados para a tabela advanced_yii2.locations: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `locations` DISABLE KEYS */;
+INSERT INTO `locations` (`location_id`, `zip_code`, `city`, `province`) VALUES
+  (1, '111', 'Colombo', 'Westerm'),
+  (2, '2222', 'Galle', 'Southern');
+/*!40000 ALTER TABLE `locations` ENABLE KEYS */;
 
 
 -- Copiando estrutura para tabela advanced_yii2.migration
@@ -182,13 +236,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela advanced_yii2.user: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela advanced_yii2.user: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
   (1, NULL, NULL, 'doingiteasy', 'd6uT9K1smdmRZVzaO0XpKwMoMmWtWnCL', '$2y$13$3VV7ZW/Zjkn5SzZGs/okE.YLOCk3cTAFgaDyQlSf5Z.5gRVWCHAYa', NULL, 'marcosarobed@gmail.com', 10, 1442884477, 1442884477),
-  (2, NULL, NULL, 'admin', 'hbBupV44qVvRInMXD3bOugETOc4lXrcx', '$2y$13$M8i5XwnNW4LgQisWiAFtAO9HYpl3d4V2WWqmztwHT125W.m8E9bLG', NULL, 'marcosarobed@gmail.com.br', 10, 1442885176, 1442885176);
+  (2, NULL, NULL, 'admin', 'hbBupV44qVvRInMXD3bOugETOc4lXrcx', '$2y$13$M8i5XwnNW4LgQisWiAFtAO9HYpl3d4V2WWqmztwHT125W.m8E9bLG', NULL, 'marcosarobed@gmail.com.br', 10, 1442885176, 1442885176),
+  (3, 'somename', 'somename', 'sam', 'YEQZ93b_snGyAObvTcBVDyRr2eh5l-R5', '$2y$13$iHxnJ/V7l8SH8RbTFY7R5utjBj8rxZYfj6K5VOpaPts9bibEeLJ2i', NULL, 'somename@gmail.com', 10, 1444178615, 1444178615);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
