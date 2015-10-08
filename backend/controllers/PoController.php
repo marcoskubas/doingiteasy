@@ -121,7 +121,7 @@ class PoController extends Controller
     public function actionUpdate($id)
     {
         $model        = $this->findModel($id);
-        $modelsPoItem = $model->getPoItems();
+        $modelsPoItem = $model->poItems;
 
         if ($model->load(Yii::$app->request->post())) {
 
