@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
   CONSTRAINT `auth_assignment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela advanced_yii2.auth_assignment: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela advanced_yii2.auth_assignment: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
   ('admin', 2, '2015-10-06 21:51:07'),
@@ -217,6 +217,40 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
   ('m000000_000000_base', 1442884248),
   ('m130524_201442_init', 1442884268);
 /*!40000 ALTER TABLE `migration` ENABLE KEYS */;
+
+
+-- Copiando estrutura para tabela advanced_yii2.po
+CREATE TABLE IF NOT EXISTS `po` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `po_no` varchar(10) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- Copiando dados para a tabela advanced_yii2.po: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `po` DISABLE KEYS */;
+INSERT INTO `po` (`id`, `po_no`, `description`) VALUES
+  (1, 'po-1', 'some description');
+/*!40000 ALTER TABLE `po` ENABLE KEYS */;
+
+
+-- Copiando estrutura para tabela advanced_yii2.po_item
+CREATE TABLE IF NOT EXISTS `po_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `po_item_no` varchar(10) NOT NULL,
+  `quantity` double NOT NULL,
+  `po_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `po_id` (`po_id`),
+  CONSTRAINT `fk001_poItem_po` FOREIGN KEY (`po_id`) REFERENCES `po` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- Copiando dados para a tabela advanced_yii2.po_item: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `po_item` DISABLE KEYS */;
+INSERT INTO `po_item` (`id`, `po_item_no`, `quantity`, `po_id`) VALUES
+  (1, 'po-item-1', 10, 1),
+  (2, 'po-item-2', 15, 1);
+/*!40000 ALTER TABLE `po_item` ENABLE KEYS */;
 
 
 -- Copiando estrutura para tabela advanced_yii2.user
