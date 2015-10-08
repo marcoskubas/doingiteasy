@@ -1240,5 +1240,51 @@
             "yii2 dynamic form",
             "yii2-dynamicform"
         ]
+    },
+    {
+        "name": "kartik-v/yii2-grid",
+        "version": "v3.0.7",
+        "version_normalized": "3.0.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-grid.git",
+            "reference": "913fde8fbe41bf998d53a88d0443e25e1e696194"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/913fde8fbe41bf998d53a88d0443e25e1e696194",
+            "reference": "913fde8fbe41bf998d53a88d0443e25e1e696194",
+            "shasum": ""
+        },
+        "require": {
+            "kartik-v/yii2-krajee-base": "~1.7"
+        },
+        "time": "2015-09-12 19:41:22",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\grid\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "Yii 2 GridView on steroids. Various enhancements and utilities for the Yii 2.0 GridView widget.",
+        "homepage": "https://github.com/kartik-v/yii2-grid",
+        "keywords": [
+            "extension",
+            "grid",
+            "widget",
+            "yii2"
+        ]
     }
 ]
