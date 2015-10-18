@@ -21,7 +21,8 @@
         "2amigos/yii2-date-picker-widget" : "*",
         "kartik-v/yii2-widget-select2": "*",
         "wbraganca/yii2-dynamicform": "*",
-        "kartik-v/yii2-grid": "*"
+        "kartik-v/yii2-grid": "*",
+        "kartik-v/yii2-mpdf": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

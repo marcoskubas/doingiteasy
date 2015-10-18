@@ -15,6 +15,9 @@ return [
         'settings' => [
             'class' => 'backend\modules\settings\Settings',
         ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+        ]
     ],
     'components' => [
         'user' => [
