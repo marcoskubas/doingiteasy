@@ -15,17 +15,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'company_id') ?>
-
-    <?= $form->field($model, 'company_name') ?>
-
-    <?= $form->field($model, 'company_email') ?>
-
-    <?= $form->field($model, 'company_address') ?>
-
-    <?= $form->field($model, 'company_created_date') ?>
-
-    <?php // echo $form->field($model, 'company_status') ?>
+    <?= $form->field($model, 'globalSearch') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
