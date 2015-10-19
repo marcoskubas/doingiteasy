@@ -13,7 +13,7 @@ use kartik\select2\Select2;
 
 <div class="branches-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => $model->formName()]); ?>
 
     <?php
     /*echo $form->field($model, 'companies_company_id')->dropDownList(
@@ -45,3 +45,34 @@ use kartik\select2\Select2;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php 
+$script = <<< JS
+
+$('form#{$model->formName()}').on('beforeSubmit', function(e){
+    var \$form = $(this);
+    $.post(
+        \$form.attr("action"), //serialize Yii2 form 
+        \$form.serialize()
+    )
+    .done(function(result){
+        result = JSON.parse(result);
+        if(result.status == 'Success'){
+            $(\$form).trigger("reset");
+            $(document).find('#modal').modal('hide');
+            $.pjax.reload({container:'#branchesGrid'});
+        }else{
+            $(\$form).trigger("reset");
+            $("#message").html(result.message);
+        }
+    })
+    .fail(function(){
+        console.log("server error");
+    });
+
+    return false;
+});
+
+JS;
+$this->registerJS($script);
+?>

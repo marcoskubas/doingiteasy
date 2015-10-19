@@ -78,8 +78,12 @@ class BranchesController extends Controller
         if(Yii::$app->user->can('create-branch')){
             $model = new Branches();
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->branch_id]);
+            if ($model->load(Yii::$app->request->post())) {
+                if($model->save()){
+                    echo json_encode(['status' => 'Success', 'message' => 'Cadastro realizado']);
+                }else{
+                    echo json_encode(['status' => 'Error', 'message' => 'Falha no cadastro']);
+                }
             } else {
                 return $this->renderAjax('create', [
                     'model' => $model,
