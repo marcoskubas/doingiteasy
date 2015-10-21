@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\EventSearch */
@@ -13,31 +14,23 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="event-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Event', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <?php 
+    Modal::begin([
+            'header' => '<h4>Events</h4>',
+            'id'     => 'modal',
+            'size'   => 'modal-lg'
+        ]);
 
-    <?php
-    /*$events = array();
-  //Testing
-  $Event = new \yii2fullcalendar\models\Event();
-  $Event->id = 1;
-  $Event->title = 'Testing';
-  $Event->start = date('Y-m-d\Th:m:s\Z');
-  $events[] = $Event;
- 
-  $Event = new \yii2fullcalendar\models\Event();
-  $Event->id = 2;
-  $Event->title = 'Testing';
-  $Event->start = date('Y-m-d\Th:m:s\Z',strtotime('tomorrow 6am'));
-  $events[] = $Event;*/
- 
+    echo "<div id='modalContent'></div>";
+
+    Modal::end();
+    ?>
+
+  <?php
   echo \yii2fullcalendar\yii2fullcalendar::widget(array(
       'events'=> $events,
   ));
-
   ?>
 
     <? /*GridView::widget([

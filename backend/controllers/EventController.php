@@ -36,11 +36,14 @@ class EventController extends Controller
         $eventos = [];
         
         foreach ($events as $event):
-            $Event = new \yii2fullcalendar\models\Event();
-            $Event->id = $event->id;
+            $Event        = new \yii2fullcalendar\models\Event();
+            $Event->id    = $event->id;
+            $Event->className = 'btn';
+            $Event->backgroundColor = 'gray';
+            $Event->borderColor = 'black';
             $Event->title = $event->title;
             $Event->start = $event->created_date;
-            $eventos[] = $Event;
+            $eventos[]    = $Event;
         endforeach;
 
         return $this->render('index', [
@@ -65,14 +68,15 @@ class EventController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($date)
     {
         $model = new Event();
+        $model->created_date = $date;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
