@@ -22,7 +22,7 @@ LoginAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body class="hold-transition login-page">
 <?php $this->beginBody() ?>
 
 <div class="wrap">
@@ -31,13 +31,13 @@ LoginAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
+<!-- <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
-</footer>
+</footer> -->
 
 <?php $this->endBody() ?>
 </body>
