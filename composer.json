@@ -25,7 +25,8 @@
         "kartik-v/yii2-mpdf": "*",
         "philippfrenzel/yii2fullcalendar" : "*",
         "yiisoft/yii2-jui" : "2.0.0",
-        "bower-asset/jquery-ui": "@stable"
+        "bower-asset/jquery-ui": "@stable",
+        "kartik-v/yii2-editable": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

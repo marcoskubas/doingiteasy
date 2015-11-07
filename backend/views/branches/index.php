@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
@@ -34,10 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
     Modal::end();
     ?>
 
-    <?php Pjax::begin(['id' => 'branchesGrid']); ?>
+    <?php //Pjax::begin(['id' => 'branchesGrid']); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'filterModel'  => $searchModel,
+        'pjax'         => true,
         'rowOptions'=> function($model){
             if($model->branch_status == 'inactive'){
                 return ['class' => 'danger'];
@@ -51,7 +52,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'companies_company_id',
                 'value'     => 'companiesCompany.company_name'
             ],
-            'branch_name',
+            [
+                'class'     => 'kartik\grid\EditableColumn',
+                'header'    => 'BRANCH',
+                'attribute' => 'branch_name',
+                'value'     => function($model){
+                    return 'The branche name is ' . $model->branch_name;
+                }
+            ],
             'branch_address',
             'branch_created_date',
             'branch_status',
@@ -59,6 +67,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-    <?php Pjax::end(); ?>
+    <?php //Pjax::end(); ?>
 
 </div>
